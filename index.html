@@ -9,11 +9,15 @@
 </head>
 <body>
     <h3>Etch-a-Sketch</h3>
+    <h2 class="status"></h2>
     <div class="container"></div>
     <div class="tools">
-        <input class="size">
+        <input class='size' type="range" min="1" max="100" value="50" class="slider" id="myRange">
         <button class="setSize">Set Canvas Size</button>
         <button class="clear">Clear</button>
+        <div class="colorpalette">
+            <input id="colorPicker" type="color" value="#333333" />
+        </div>
     </div>
     <script src="javascript/sketch.js"></script>
 </body>

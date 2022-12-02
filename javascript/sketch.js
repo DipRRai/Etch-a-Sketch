@@ -2,14 +2,21 @@ const container = document.querySelector('.container');
 const size = document.querySelector('.size');
 const setSize = document.querySelector('.setSize');
 const clear = document.querySelector('.clear');
+const statusbar = document.querySelector('.status');
+const colorpicker = document.querySelector('.colorpalette');
 
 clear.addEventListener('click', clearcanvas);
 setSize.addEventListener('click', resetGrid);
+colorpicker.oninput = (e) => paintColor = e.target.value;
 
 function resetGrid(){
-  container.innerHTML = '';
-  makeGrid(size.value, size.value);
-  container.style.justifyContent = 'center';
+  if (isNaN(parseInt(size.value)) == true){
+    statusbar.textContent = 'Please enter integers only in canvas size field';
+  } else {
+    container.innerHTML = '';
+    makeGrid(size.value, size.value);
+    container.style.justifyContent = 'center';
+  }
 }
 
 function clearcanvas(e){
@@ -20,7 +27,9 @@ function clearcanvas(e){
 }
 
 function color(e){
-  this.style.backgroundColor="red";
+  if (mouseDown){
+    this.style.backgroundColor = paintColor;
+  }
 }
 
 function makeGrid(rows, cols) {
@@ -41,8 +50,12 @@ function makeGrid(rows, cols) {
       tempGrid.appendChild(tempcol);
     }
   }
-  container.appendChild(tempGrid);
 }
+
+let mouseDown = false
+let paintColor = 'red';
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
 
 makeGrid(64,64);
 
