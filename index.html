@@ -8,15 +8,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h3>Etch-a-Sketch</h3>
-    <h2 class="status"></h2>
-    <div class="container"></div>
-    <div class="tools">
-        <input class='size' type="range" min="1" max="100" value="50" class="slider" id="myRange">
-        <button class="setSize">Set Canvas Size</button>
-        <button class="clear">Clear</button>
-        <div class="colorpalette">
-            <input id="colorPicker" type="color" value="#333333" />
+    <div class = "displayWindow">
+        <div class="upper">
+            <h3 class="title">Etch-a-Sketch</h3>
+            <h2 class="status"></h2>
+        </div>
+        <div class="lower">
+            <div class="container"></div>
+            <div class="tools">
+                <p class="sizeText">50x50 Px</p>
+                <input class='size' type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                <button class="setSize">Set Canvas Size</button>
+                <button class="clear">Clear</button>
+                <button class="randomise">Randomise</button>
+                <div class="colorpalette">
+                    <p>Color picker</p>
+                    <input id="colorPicker" type="color" value="#333333" />
+                </div>
+            </div>
         </div>
     </div>
     <script src="javascript/sketch.js"></script>
