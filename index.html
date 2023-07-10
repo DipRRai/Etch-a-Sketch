@@ -4,34 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etch-a-Sketch</title>
+    <title>PathFinder</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class = "displayWindow">
         <div class="upper">
-            <h3 class="title">Etch-a-Sketch</h3>
+            <h3 class="title">Pathfinding</h3>
             <h2 class="status"></h2>
         </div>
         <div class="lower">
             <div class="container"></div>
             <div class="tools">
+                <h1>Step 1</h1>
+                <h2>Select Parameters</h2>
                 <div>
-                    <p class="sizeText">10x10 Px</p>
+                    <p class="sizeText">30x30 Px</p>
                 </div>
                 <div>
-                    <input class='size' type="range" min="4" max="100" value="10" class="slider" id="myRange">
+                    <input class='size' type="range" min="4" max="100" value="30" class="slider" id="myRange">
                 </div>
-                <button class="setSize">Set Canvas Size</button>
-                <button class="clear">Clear</button>
                 <div>
-                    <button class="randomise">Randomise</button>
-                    <button class="start">Start</button>
+                    <p>Speed</p>
+                    <p class="algorithmSpeed">1ms</p>
+                </div>
+                <div>
+                    <input class='speed' type="range" min="1" max="200" value="1" class="slider">
+                </div>
+                <h1>Step 2</h1>
+                <h2>Click in order</h2>
+                <div>
+                    <button class="start">Set Start and end point</button>
                     <button class="BFS">BFS</button>
+                    <button class="clear">Clear</button>
                 </div>
                 <div class="colorpalette">
-                    <p>Color picker</p>
-                    <input id="colorPicker" type="color" value="#333333" />
+                    <p>Wall Color</p>
+                    <input class ="colorPicker" id="colorPicker" type="color" value="#ff99ff" />
+                </div>
+                <div>
+                    <p>Miscellaneous</p>
+                    <button class="randomise">Randomise</button>
                 </div>
             </div>
         </div>

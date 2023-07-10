@@ -1,26 +1,37 @@
 const container = document.querySelector('.container');
 const size = document.querySelector('.size');
-const setSize = document.querySelector('.setSize');
 const clear = document.querySelector('.clear');
 const statusbar = document.querySelector('.status');
-const colorpicker = document.querySelector('.colorpalette');
+const colorpicker = document.querySelector('.colorPicker');
 const sizeText = document.querySelector('.sizeText')
 const displayWindow = document.querySelector('.lower')
 const randomise = document.querySelector('.randomise')
 const start = document.querySelector('.start')
 const bfs = document.querySelector('.BFS')
+const setSpeed = document.querySelector('.speed')
+const textSpeed = document.querySelector('.algorithmSpeed')
 var matrix = [];
 var startPoint = [0,0];
 var endPoint = [0,0];
 var matrixSize = size.value;
+var speed = setSpeed.value;
 
+colorpicker.addEventListener("input", funcSelectWall)
+setSpeed.addEventListener('mouseup', funcSetSpeed);
 bfs.addEventListener('click', bfsFunc);
 randomise.addEventListener('click', funcRandomise);
-clear.addEventListener('click', clearcanvas);
-setSize.addEventListener('click', resetGrid);
-size.addEventListener('input', updateSize);
-start.addEventListener('click', funcStart)
-colorpicker.oninput = (e) => paintColor = e.target.value;
+clear.addEventListener('click', updateSize  );
+size.addEventListener('mouseup', updateSize);
+start.addEventListener('click', funcStart);
+
+function funcSetSpeed(){
+  speed = setSpeed.value;
+  textSpeed.innerHTML = speed+"ms";
+}
+
+function funcSelectWall(){
+  paintColor = colorpicker.value;
+}
 
 function funcRandomise(){
   var i = 1;
@@ -61,22 +72,15 @@ function funcStart(){
 
 function updateSize(){
   sizeText.innerHTML = size.value + "x" + size.value+"  Px";
+  container.innerHTML = '';
+  makeGrid(size.value, size.value);
 }
 
 function resetGrid(){
   if (isNaN(parseInt(size.value)) == true){
     statusbar.textContent = 'Please enter integers only in canvas size field';
   } else {
-    container.innerHTML = '';
-    makeGrid(size.value, size.value);
   }
-}
-
-function clearcanvas(e){
-  let canvas = document.querySelectorAll('.gridbox');
-  canvas.forEach(gridbox => {
-    gridbox.style.backgroundColor = 'black';
-  });
 }
 
 function color(e){
@@ -113,9 +117,11 @@ function bfsFunc(){
   const parent = {};
   queue.push({row: startPoint[0], col: startPoint[1]});
   var time = 1;
+
   function colorfill(time, color, cur) {
-    setTimeout(() => {cur.style.backgroundColor = color}, 25*time);  
+    setTimeout(() => {cur.style.backgroundColor = color}, speed*time);  
   }
+
   while (queue.length > 0){
     const {row, col}= queue.shift()
     const current = matrix[row][col]
@@ -123,10 +129,11 @@ function bfsFunc(){
     if (row == endPoint[0] && col == endPoint[1]){
       break
     }
+
     if (row == startPoint[0] && col == startPoint[1]){
       colorfill(time, "red", current);
       time++;
-    } else {
+    } else if(matrix[row][col].style.backgroundColor != "rgb(255, 153, 255)"){
       colorfill(time, "grey", current);
       time++;
     }
@@ -142,12 +149,19 @@ function bfsFunc(){
       const nRow = neighbours[i].row;
       const nCol = neighbours[i].col;
 
+      
       if (nRow < 0 || nRow > matrix.length-1){
         continue
       }
       if (nCol < 0 || nCol > matrix.length-1){
         continue
       }
+      if (matrix[nRow][nCol].style.backgroundColor != "black" && matrix[nRow][nCol].style.backgroundColor != "blue" ){
+        continue
+      } else {
+        
+      }
+
       
       const key = `${nRow}x${nCol}`;
 
@@ -172,9 +186,8 @@ function bfsFunc(){
     currentKey = key;    
   }
   function color(time, color, i) {
-    setTimeout(() => {path[i].style.backgroundColor = color}, 25*time);  
+    setTimeout(() => {path[i].style.backgroundColor = color}, speed*time);  
   }
-  console.dir(path)
   for (i=1; i<path.length;i++){
      color(time, "white", i);
      time++;
@@ -183,7 +196,7 @@ function bfsFunc(){
 
 
 let mouseDown = false
-let paintColor = 'red';
+let paintColor = colorpicker.value;
 document.body.onmousedown = () => (mouseDown = true)
 document.body.onmouseup = () => (mouseDown = false)
 
